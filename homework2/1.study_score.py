@@ -3,11 +3,19 @@
 """
 
 score = int(input("请输入学生成绩："))
+
+if score >= 90:
+    grade = 'A'
+elif score >= 60:
+    grade = 'B'
+else:
+    grade = 'C'
+print("学生成绩等级为：", grade)
+
+# 或者写成下面形式
+"""
+score = int(input("请输入学生成绩："))
 grade = 'A' if score >= 90 else 'B' if score >= 60 else 'C'
 print("学生成绩等级为：", grade)
 
-
-"""
-5.字典编程。编写一个有5个中英文单词的字典，可以添加、删除、遍历单词；
-然后，单词数量达到10个，最终，可以中英文单词可以相互翻译。
 """

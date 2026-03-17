@@ -5,12 +5,35 @@
 """""
 
 
-def monkey_peach():
-    for i in range(1, 1000):
-        if i % 5 == 1:
-            if i // 5 * 4 == (i - 1) // 5 * 4:
-                if i // 5 * 4 == (i - 2) // 5 * 4:
-                    if i // 5 * 4 == (i - 3) // 5 * 4:
-                        if i // 5 * 4 == (i - 4) // 5 * 4:
-                            return i
-print("海滩上原来最少有", monkey_peach(), "个桃子")
+def find_min_peaches_optimized():
+    """
+    优化版：从后往前推，提高计算效率
+    """
+    # 第五只猴子分之前有x个桃子
+    # x = 5a + 1，剩下4a
+    # 第四只猴子分之前有y个桃子
+    # y = 5b + 1，剩下4b = x
+    # 所以y = (5/4)x + 1
+
+    # 从x开始，x必须满足：x % 5 == 1 且 x % 4 == 0
+    x = 6  # 从第一个满足x % 5 == 1的数开始
+    while True:
+        if x % 5 == 1 and x % 4 == 0:
+            # 计算第四只猴子分之前的桃子数
+            y = (5 * x) // 4 + 1
+            if y % 5 == 1 and y % 4 == 0:
+                # 计算第三只猴子分之前的桃子数
+                z = (5 * y) // 4 + 1
+                if z % 5 == 1 and z % 4 == 0:
+                    # 计算第二只猴子分之前的桃子数
+                    w = (5 * z) // 4 + 1
+                    if w % 5 == 1 and w % 4 == 0:
+                        # 计算第一只猴子分之前的桃子数
+                        v = (5 * w) // 4 + 1
+                        if v % 5 == 1 and v % 4 == 0:
+                            return v
+        x += 5  # 每次增加5，保持x % 5 == 1
+
+# 找到最小的初始桃子数
+min_peaches = find_min_peaches_optimized()
+print(f"海滩上原来最少有 {min_peaches} 个桃子")
