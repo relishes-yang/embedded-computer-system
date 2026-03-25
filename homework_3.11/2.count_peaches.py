@@ -1,39 +1,38 @@
-"""
-2.（练习实例80）海滩上有一堆桃子，五只猴子来分。第一只猴子把这堆桃子平均分为五份，多了一个，这只猴子把多的一个扔入海中，拿走了一份。
-第二只猴子把剩下的桃子又平均分成五份，又多了一个，它同样把多的一个扔入海中，拿走了一份，
-第三、第四、第五只猴子都是这样做的，问海滩上原来最少有多少个桃子？
-"""""
-
-
-def find_min_peaches_optimized():
+def monkey_peach():
     """
-    优化版：从后往前推，提高计算效率
+    简单暴力破解法解决猴子分桃问题
     """
-    # 第五只猴子分之前有x个桃子
-    # x = 5a + 1，剩下4a
-    # 第四只猴子分之前有y个桃子
-    # y = 5b + 1，剩下4b = x
-    # 所以y = (5/4)x + 1
+    # 从一个较大的数开始尝试
+    peaches = 1
 
-    # 从x开始，x必须满足：x % 5 == 1 且 x % 4 == 0
-    x = 6  # 从第一个满足x % 5 == 1的数开始
     while True:
-        if x % 5 == 1 and x % 4 == 0:
-            # 计算第四只猴子分之前的桃子数
-            y = (5 * x) // 4 + 1
-            if y % 5 == 1 and y % 4 == 0:
-                # 计算第三只猴子分之前的桃子数
-                z = (5 * y) // 4 + 1
-                if z % 5 == 1 and z % 4 == 0:
-                    # 计算第二只猴子分之前的桃子数
-                    w = (5 * z) // 4 + 1
-                    if w % 5 == 1 and w % 4 == 0:
-                        # 计算第一只猴子分之前的桃子数
-                        v = (5 * w) // 4 + 1
-                        if v % 5 == 1 and v % 4 == 0:
-                            return v
-        x += 5  # 每次增加5，保持x % 5 == 1
+        original = peaches  # 保存原始桃子数
 
-# 找到最小的初始桃子数
-min_peaches = find_min_peaches_optimized()
-print(f"海滩上原来最少有 {min_peaches} 个桃子")
+        # 模拟五只猴子的操作
+        success = True
+        for i in range(5):
+            # 检查当前桃子数是否能分5份余1
+            if peaches % 5 != 1:
+                success = False
+                break
+
+            # 分成5份，扔掉1个，拿走1份（即剩下4份）
+            peaches = (peaches - 1) // 5 * 4
+
+        # 如果五只猴子都成功操作，找到了答案
+        if success:
+            return original
+
+        peaches = original + 1  # 尝试下一个桃子数
+
+
+# 计算并输出结果
+result = monkey_peach()
+print(f"海滩上原来最少有 {result} 个桃子")
+
+# 验证结果
+print("\n验证过程:")
+temp = result
+for i in range(1, 6):
+    print(f"第{i}只猴子：{temp}个桃子 -> 分5份余1 -> 拿走1份 -> 剩余{(temp - 1) // 5 * 4}个")
+    temp = (temp - 1) // 5 * 4
