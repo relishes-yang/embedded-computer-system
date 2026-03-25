@@ -6,5 +6,6 @@ s = input("请输入字符串: ").upper()
 with open("test", "w") as f:
     f.write(s)
 print("已保存到文件 'test'")
+f.read("./test.txt")
 
 
