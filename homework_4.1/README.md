@@ -17,7 +17,4 @@
 ## ▶️ 运行方法
 ```bash
 # 运行单个实验
-python experiment1_multiplication_table.py
-
-# 运行所有实验
-python run_all.py
+python test1.py
